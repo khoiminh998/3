@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ cá với Chuyển động</title>
+    <style>
+        /* Khung chứa hồ cá */
+        .aquarium {
+            width: 80%;
+            height: 1000px;
+            margin: 0 auto;
+            border: 2px solid #1E90FF;
+            background-color: #87CEEB;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        
+        /* Con cá */
+        .fish {
+            width: 80px;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            animation: moveFish 5s linear infinite alternate;
+        }
+        
+        /* Cá mập */
+        .shark {
+            width: 500px;
+            position: absolute;
+            top: 100px;
+            left: 0;
+            animation: moveShark 8s linear infinite alternate;
+        }
+        
+        /* Thợ lặn */
+        .diver {
+            width: 200px;
+            position: absolute;
+            top: 50px;
+            left: 300px;
+            animation: moveDiver 6s ease-in-out infinite alternate;
+        }
+        
+        /* Rùa */
+        .turtle {
+            width: 150px;
+            position: absolute;
+            top: 200px;
+            left: 0;
+            animation: moveTurtle 10s ease-in-out infinite alternate;
+        }
+        
+        /* Hiệu ứng di chuyển cho con cá */
+        @keyframes moveFish {
+            0% { left: 0; transform: scaleX(1); }
+            100% { left: 90%; transform: scaleX(-1); }
+        }
+
+        /* Hiệu ứng di chuyển cho cá mập */
+        @keyframes moveShark {
+            0% { left: 0; transform: scaleX(1); }
+            100% { left: 80%; transform: scaleX(-1); }
+        }
+
+        /* Hiệu ứng di chuyển cho thợ lặn */
+        @keyframes moveDiver {
+            0% { top: 50px; left: 300px; }
+            100% { top: 150px; left: 50px; }
+        }
+
+        /* Hiệu ứng di chuyển cho rùa */
+        @keyframes moveTurtle {
+            0% { left: 0; }
+            100% { left: 85%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Khung chứa hồ cá -->
+    <div class="aquarium">
+        
+        <!-- Con cá -->
+        <img src="cá.png" alt="Cá" class="fish">
+        
+        <!-- Cá mập -->
+        <img src="cá-mập_1.png" alt="Cá mập" class="shark">
+        
+        <!-- Thợ lặn -->
+        <img src="thợ-lặn-1.png" alt="Thợ lặn" class="diver">
+        
+        <!-- Rùa -->
+        <img src="rùa_1.png" alt="Rùa" class="turtle">
+    </div>
+</body>
+</html>

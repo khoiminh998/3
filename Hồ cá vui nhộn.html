@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ cá động với Thợ lặn và Rùa</title>
+    <style>
+        .aquarium {
+            width: 100%;
+            height: 770px;
+            margin: 0 auto;
+            border: 2px solid #1E90FF;
+            background: url('cảnh.jpg') no-repeat center center;
+            background-size: cover;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .fish, .shark, .turtle, .diver, .octopus, .jellyfish, .fish2, .fish3, .fish4, .fish5, .fish6, .fish7 {
+            position: absolute;
+            transition: transform 0.3s;
+        }
+
+        .fish {
+            width:70px;
+            top: 50%;
+            left: 0;
+        }
+        .fish2 {
+            width:70px;
+            top: 40%;
+            left: 0;
+        }
+        .fish3 {
+            width:70px;
+            top: 60%;
+            left: 0;
+        }
+        .fish4 {
+            width:70px;
+            top: 30%;
+            left: 0;
+        }
+        .fish5 {
+            width:70px;
+            top: 70%;
+            left: 0;
+        }
+        .fish6 {
+            width:70px;
+            top: 20%;
+            left: 0;
+        }
+        .fish7 {
+            width:70px;
+            top: 80%;
+            left: 0;
+        }
+
+        .shark {
+            width: 400px; /* Kích thước cá mập lớn hơn */
+            top: 10%;      /* Đảm bảo cá mập nằm trong khung */
+            left: 0;
+        }
+        .octopus {
+            width: 200px; 
+            bottom: 10%;      
+            left: 10%;
+        }
+        .jellyfish {
+            width: 70px; 
+            top: 0;      
+            left: 75%;
+        }
+
+        .turtle {
+            width: 150px;
+            top: 70%;
+            left: 0;
+        }
+
+        .diver {
+            width: 150px;
+            top: 50%;
+            left: 50%; /* Vị trí ngang cố định cho thợ lặn */
+        }
+    </style>
+</head>
+<body>
+    <!-- Khung chứa hồ cá -->
+    <div class="aquarium">
+        <img src="tach tuoc.png" alt="Bạch tuộc" class="octopus" id="octopus">
+        <!-- Con cá -->
+        <img src="ca.png" alt="Cá" class="fish" id="fish">
+        <!-- Cá mập -->
+        <img src="ca map.png" alt="Cá mập" class="shark" id="shark">
+        <!-- Rùa -->
+        <img src="rua.png" alt="Rùa" class="turtle" id="turtle">
+        <!-- Thợ lặn -->
+        <img src="tho lan.png" alt="Thợ lặn" class="diver" id="diver">
+        <img src="sua.png" alt="Sứa" class="jellyfish" id="jellyfish">
+        <img src="ca.png" alt="Cá" class="fish2" id="fish2">
+        <img src="ca.png" alt="Cá" class="fish3" id="fish3">
+        <img src="ca.png" alt="Cá" class="fish4" id="fish4">
+        <img src="ca.png" alt="Cá" class="fish5" id="fish5">
+        <img src="ca.png" alt="Cá" class="fish6" id="fish6">
+        <img src="ca.png" alt="Cá" class="fish7" id="fish7">
+       
+    </div>
+
+    <script>
+        const aquarium = document.querySelector(".aquarium");
+
+        // Hàm tạo chuyển động cho mỗi loài
+        function animateCreature(creature, speed, amplitude, frequency, horizontalMove = true) {
+            let direction = 1; // 1 là đi về phía phải, -1 là đi về phía trái
+            let positionX = horizontalMove ? 0 : parseInt(window.getComputedStyle(creature).left); // Vị trí ngang hiện tại
+            let positionY = parseInt(window.getComputedStyle(creature).top); // Vị trí dọc hiện tại
+            let frameCount = 0; // Biến đếm khung hình để tạo dao động lên xuống
+
+            function move() {
+                if (horizontalMove) {
+                    // Cập nhật vị trí ngang
+                    positionX += speed * direction;
+
+                    // Kiểm tra nếu chạm vào cạnh phải của hồ
+                    if (positionX + creature.offsetWidth >= aquarium.offsetWidth) {
+                        direction = -1; // Đổi hướng sang trái
+                        creature.style.transform = "scaleX(-1)";
+                    }
+                    // Kiểm tra nếu chạm vào cạnh trái của hồ
+                    if (positionX <= 0) {
+                        direction = 1; // Đổi hướng sang phải
+                        creature.style.transform = "scaleX(1)";
+                    }
+
+                    // Cập nhật vị trí ngang của sinh vật
+                    creature.style.left = positionX + "px";
+                } else {
+                    // Nếu không di chuyển ngang, tăng frameCount để tạo dao động
+                    frameCount++;
+                }
+
+                // Di chuyển lên xuống bằng cách sử dụng hàm sin
+                let verticalOffset = Math.sin(frameCount / frequency) * amplitude;
+                let maxY = aquarium.offsetHeight - creature.offsetHeight; // Giới hạn vị trí Y để nằm trong hồ
+
+                // Cập nhật vị trí dọc trong giới hạn của hồ
+                creature.style.top = Math.min(Math.max(positionY + verticalOffset, 0), maxY) + "px";
+
+                // Lặp lại di chuyển
+                requestAnimationFrame(move);
+            }
+
+            // Bắt đầu di chuyển
+            move();
+        }
+
+        // Lấy các phần tử và tạo chuyển động cho mỗi loài
+        
+        animateCreature(document.getElementById("shark"), 1.5, 20, 60); // Cá mập
+        animateCreature(document.getElementById("turtle"), 1, 40, 70);  // Rùa
+        animateCreature(document.getElementById("diver"), 0, 20, 40, false); // Thợ lặn (chỉ di chuyển lên xuống)
+        animateCreature(document.getElementById("octopus"), 0, 20, 40, false);
+        animateCreature(document.getElementById("jellyfish"), 0, 20, 40, false);
+        animateCreature(document.getElementById("fish"), 2, 30, 50);   
+        animateCreature(document.getElementById("fish2"), 2.5, 30, 50);
+        animateCreature(document.getElementById("fish3"), 3, 30, 50);
+        animateCreature(document.getElementById("fish4"), 3.5, 30, 50);
+        animateCreature(document.getElementById("fish5"), 4, 30, 50);
+        animateCreature(document.getElementById("fish6"), 4.5, 30, 50);
+        animateCreature(document.getElementById("fish7"), 5, 30, 50);
+    </script>
+</body>
+</html>
